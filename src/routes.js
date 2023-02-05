@@ -1,12 +1,9 @@
 // Dumpster Dashboard React layouts
 import Dashboard from "layouts/dashboard";
-import Tables from "layouts/tables";
-import Billing from "layouts/billing";
-import RTL from "layouts/rtl";
-import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import ResetPassword from "layouts/authentication/reset-password"
+import AddDustbin from "layouts/add-dustbin";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -20,7 +17,15 @@ const routes = [
     route: "/dashboard",
     component: <Dashboard />,
   },
-  
+  {
+    type: "collapse",
+    name: "Add Dustbin",
+    key: "billing",
+    route: "/add-dustbin",
+    icon: <Icon size="12px" />,
+    component: <AddDustbin />,
+    noCollapse: true,
+  },
   {
     type: "collapse",
     name: "Profile",
