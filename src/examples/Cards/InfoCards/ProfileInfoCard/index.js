@@ -1,17 +1,4 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
 
 // react-routers components
 import { Link } from "react-router-dom";
@@ -25,15 +12,15 @@ import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
 import Icon from "@mui/material/Icon";
 
-// Material Dashboard 2 React components
+// Dumpster Dashboard React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
-// Material Dashboard 2 React base styles
+// Dumpster Dashboard React base styles
 import colors from "assets/theme/base/colors";
 import typography from "assets/theme/base/typography";
 
-function ProfileInfoCard({ title, description, info, social, action, shadow }) {
+function ProfileInfoCard({ title, description, info, social, action }) {
   const labels = [];
   const values = [];
   const { socialMediaColors } = colors;
@@ -56,7 +43,7 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
 
   // Render the card info items
   const renderItems = labels.map((label, key) => (
-    <MDBox key={label} display="flex" py={1} pr={2}>
+    <MDBox key={label} display="flex" py={0.5} pr={2}>
       <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
         {label}: &nbsp;
       </MDTypography>
@@ -85,7 +72,7 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
   ));
 
   return (
-    <Card sx={{ height: "100%", boxShadow: !shadow && "none" }}>
+    <Card sx={{ height: "100%" }}>
       <MDBox display="flex" justifyContent="space-between" alignItems="center" pt={2} px={2}>
         <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize">
           {title}
@@ -98,7 +85,7 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
       </MDBox>
       <MDBox p={2}>
         <MDBox mb={2} lineHeight={1}>
-          <MDTypography variant="button" color="text" fontWeight="light">
+          <MDTypography variant="button" color="text" fontWeight="regular">
             {description}
           </MDTypography>
         </MDBox>
@@ -119,11 +106,6 @@ function ProfileInfoCard({ title, description, info, social, action, shadow }) {
   );
 }
 
-// Setting default props for the ProfileInfoCard
-ProfileInfoCard.defaultProps = {
-  shadow: true,
-};
-
 // Typechecking props for the ProfileInfoCard
 ProfileInfoCard.propTypes = {
   title: PropTypes.string.isRequired,
@@ -134,7 +116,6 @@ ProfileInfoCard.propTypes = {
     route: PropTypes.string.isRequired,
     tooltip: PropTypes.string.isRequired,
   }).isRequired,
-  shadow: PropTypes.bool,
 };
 
 export default ProfileInfoCard;

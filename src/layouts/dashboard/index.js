@@ -1,28 +1,15 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
 
 // @mui material components
 import Grid from "@mui/material/Grid";
 
-// Material Dashboard 2 React components
+// Dumpster Dashboard React components
 import MDBox from "components/MDBox";
 
-// Material Dashboard 2 React example components
+// Dumpster Dashboard React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import Footer from "examples/Footer";
+
 import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
@@ -34,8 +21,9 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import { useNavigate } from "react-router-dom";
 
-function Dashboard() {
+function getPageContent() {
   const { sales, tasks } = reportsLineChartData;
 
   return (
@@ -144,20 +132,23 @@ function Dashboard() {
             </Grid>
           </Grid>
         </MDBox>
-        <MDBox>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={8}>
-              <Projects />
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <OrdersOverview />
-            </Grid>
-          </Grid>
-        </MDBox>
       </MDBox>
-      <Footer />
+      
     </DashboardLayout>
   );
 }
+
+const Dashboard = () =>{
+  const user = localStorage.getItem("valid_user");
+  console.log("user",user)
+  const navigate = useNavigate();
+
+  if(user===null) {
+    navigate("/authentication/sign-in");
+} else {
+  return getPageContent();
+}
+return <></>;
+} 
 
 export default Dashboard;
