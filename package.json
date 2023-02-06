@@ -17,6 +17,7 @@
     "npm": ">=6"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.7.0",
     "@emotion/cache": "11.7.1",
     "@emotion/react": "11.7.1",
     "@emotion/styled": "11.6.0",
@@ -39,6 +40,9 @@
     "react-table": "7.7.0",
     "stylis": "4.0.13",
     "stylis-plugin-rtl": "2.1.1",
+    "sweetalert2": "^11.4.38",
+    "uid": "^2.0.1",
+    "uuid": "8.3.2",
     "web-vitals": "2.1.4",
     "yup": "0.32.11"
   },
