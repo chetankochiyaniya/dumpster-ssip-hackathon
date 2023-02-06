@@ -152,19 +152,19 @@ function AddWorker() {
                   <MDBox p={2}>
                     <Grid container spacing={3}>
                       <Grid item xs={12} md={6}>
-                        <MDInput type="text" placeholder="Worker Name" value={workerName} onChange={(e) => setworkerName(e.target.value)} />
+                        <MDInput type="text" sx={{width:"100%"}} placeholder="Worker Name" value={workerName} onChange={(e) => setworkerName(e.target.value)} />
                       </Grid>
                       <Grid item xs={12} md={6}>
-                        <MDInput type="text" placeholder="Email Id" value={email_id} onChange={(e) => setemail_id(e.target.value)} />
+                        <MDInput type="text" sx={{width:"100%"}} placeholder="Email Id" value={email_id} onChange={(e) => setemail_id(e.target.value)} />
                       </Grid>
                       <Grid item xs={12} md={6}>
-                        <MDInput type="text" placeholder="Dustbin Name" value={dustbin_name} onChange={(e) => setdustbin_name(e.target.value)} />
+                        <MDInput type="text" sx={{width:"100%"}} placeholder="Dustbin Name" value={dustbin_name} onChange={(e) => setdustbin_name(e.target.value)} />
                       </Grid>
                       <Grid item xs={12} md={6}>
-                        <MDInput type="text" placeholder="Phone Number" value={number} onChange={(e) => setNumber(e.target.value)} />
+                        <MDInput type="text" sx={{width:"100%"}} placeholder="Phone Number" value={number} onChange={(e) => setNumber(e.target.value)} />
                       </Grid>
                       <Grid item xs={12}>
-                        <MDInput type="text" placeholder="Address" value={address} onChange={(e) => setaddress(e.target.value)} />
+                        <MDInput type="text" sx={{width:"100%"}} placeholder="Address" value={address} onChange={(e) => setaddress(e.target.value)} />
                       </Grid>
                     </Grid>
                   </MDBox>

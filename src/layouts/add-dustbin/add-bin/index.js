@@ -184,16 +184,16 @@ console.log("added")
       <MDBox p={2}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={4}>
-          <MDInput type="text" placeholder="Dustbin Name" value={deviceName} onChange={(e) => setDeviceName(e.target.value)} />
+          <MDInput type="text" sx={{width:"100%"}} placeholder="Dustbin Name" value={deviceName} onChange={(e) => setDeviceName(e.target.value)} />
           </Grid>
           <Grid item xs={12} md={4}>
-          <MDInput type="text" placeholder="Responsible Person" value={res_person} onChange={(e) => setRes_Person(e.target.value)}/>
+          <MDInput type="text" sx={{width:"100%"}} placeholder="Responsible Person" value={res_person} onChange={(e) => setRes_Person(e.target.value)}/>
           </Grid>
           <Grid item xs={12} md={4}>
-          <MDInput type="text" placeholder="Ward Number" value={wardno} onChange={(e) => setWardNo(e.target.value)}/>
+          <MDInput type="text" sx={{width:"100%"}} placeholder="Ward Number" value={wardno} onChange={(e) => setWardNo(e.target.value)}/>
           </Grid>
           <Grid item xs={12} >
-          <MDInput type="text" placeholder="Dustbin Address" value={address} onChange={(e) => setAddress(e.target.value)}/>
+          <MDInput type="text" sx={{width:"100%"}} placeholder="Dustbin Address" value={address} onChange={(e) => setAddress(e.target.value)}/>
           </Grid>
         </Grid>
       </MDBox>
