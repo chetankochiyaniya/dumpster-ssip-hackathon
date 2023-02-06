@@ -40,7 +40,7 @@ const routes = [
     name: "Dustbin details",
     key: "dustbindetails",
     icon: <Icon fontSize="small">dashboard</Icon>,
-    route: "/dustin-details",
+    route: "/dustbin-details",
     component: <DustbinDetails />,
   },
   {
