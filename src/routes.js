@@ -69,7 +69,7 @@ const routes = [
   },
   {
     name: "Reset Password",
-    key: "reset-passwoed",
+    key: "reset-password",
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/authentication/resetpassword",
     component: <ResetPassword /> ,

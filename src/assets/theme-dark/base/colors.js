@@ -8,9 +8,9 @@
 
 const colors = {
   background: {
-    default: "#1a2035",
-    sidenav: "#1f283e",
-    card: "#202940",
+    default: "#000",
+    sidenav: "#191c24",
+    card: "#191c24",
   },
 
   text: {
@@ -69,8 +69,8 @@ const colors = {
   },
 
   dark: {
-    main: "#344767",
-    focus: "#2c3c58",
+    main: "#191c24",
+    focus: "#0f1015",
   },
 
   grey: {
