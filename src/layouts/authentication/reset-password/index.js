@@ -14,8 +14,38 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 
 // Images
 import bgImage from "assets/images/bg-reset-cover.jpeg";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { auth } from "../../../firebase/firebase";
+import { sendPasswordResetEmail } from "firebase/auth";
 
 function RestPassword() {
+  
+
+  const [email, setEmail] = useState();
+  const navigate = useNavigate();
+
+  const sendMail = () => {
+      console.log("email",email)
+      sendPasswordResetEmail(auth, email)
+          .then((res) => {
+              // Password reset email sent!
+              localStorage.removeItem("validate")
+              console.log("email is sended !")
+              alert("check your email !!")
+              navigate('/authentication/sign-in')
+              
+          })
+          .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              // ..
+              console.log("error",errorMessage)
+              alert("plase enter valid details")
+          });
+  }
+
   return (
     <CoverLayout coverHeight="50vh" image={bgImage}>
       <Card>
@@ -40,10 +70,10 @@ function RestPassword() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={4}>
-              <MDInput type="email" label="Email" variant="standard" fullWidth />
+              <MDInput type="email" label="Email" variant="standard" fullWidth onChange={e => setEmail(e.target.value)} />
             </MDBox>
             <MDBox mt={6} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton variant="gradient" color="info" fullWidth onClick={sendMail}>
                 reset
               </MDButton>
             </MDBox>
