@@ -10,6 +10,7 @@ import Logout from "layouts/authentication/logout";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
+import AllocateWorker from "layouts/allocate-worker";
 
 const routes = [
   {
@@ -35,6 +36,14 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/add-worker",
     component: <AddWorker />,
+  },
+  {
+    type: "collapse",
+    name: "Allocate Worker",
+    key: "allocate-worker",
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "/allocate-worker",
+    component: <AllocateWorker />,
   },
   {
     name: "Dustbin Details",
