@@ -157,14 +157,14 @@ function AddWorker() {
                       <Grid item xs={12} md={6}>
                         <MDInput type="text" sx={{width:"100%"}} placeholder="Email Id" value={email_id} onChange={(e) => setemail_id(e.target.value)} />
                       </Grid>
-                      <Grid item xs={12} md={6}>
+                      {/* <Grid item xs={12} md={6}>
                         <MDInput type="text" sx={{width:"100%"}} placeholder="Dustbin Name" value={dustbin_name} onChange={(e) => setdustbin_name(e.target.value)} />
-                      </Grid>
+                      </Grid> */}
                       <Grid item xs={12} md={6}>
                         <MDInput type="text" sx={{width:"100%"}} placeholder="Phone Number" value={number} onChange={(e) => setNumber(e.target.value)} />
                       </Grid>
-                      <Grid item xs={12}>
-                        <MDInput type="text" sx={{width:"100%"}} placeholder="Address" value={address} onChange={(e) => setaddress(e.target.value)} />
+                      <Grid item xs={12} md={6}>
+                        <MDInput type="text" sx={{width:"100%"}} placeholder="Worker Address" value={address} onChange={(e) => setaddress(e.target.value)} />
                       </Grid>
                     </Grid>
                   </MDBox>
@@ -209,12 +209,12 @@ function AddWorker() {
                         <Table
                           columns={[
                             { name: "name", align: "center" },
-                            { name: "email_id", align: "left" },
+                            { name: "email_id", align: "center" },
                             { name: "number", align: "center" },
                             { name: "address", align: "center" },
-                            { name: "dustbin_name", align: "left" },
+                            // { name: "dustbin_name", align: "center" },
                             { name: "edit", align: "right" },
-                            { name: "delete", align: "left" },
+                            { name: "delete", align: "center" },
                           ]}
 
                           rows=
@@ -226,12 +226,12 @@ function AddWorker() {
                               const email_id = value["email_id"]
                               const number = value["number"]
                               const address = value["address"]
-                              const dustbin_name = value["dustbin_name"]
+                              // const dustbin_name = value["dustbin_name"]
                               x["name"] = value["workerName"]
                               x["email_id"] = value["email_id"];
                               x["number"] = value["number"]
                               x["address"] = value["address"]
-                              x["dustbin_name"] = value["dustbin_name"]
+                              // x["dustbin_name"] = value["dustbin_name"]
                               x["edit"] = (<MDButton variant="gradient" color="info" iconOnly
                                 onClick={() => { handleEdit(name, email_id, number, address, dustbin_name); }}>
                                 <Icon>edit</Icon></MDButton>)
