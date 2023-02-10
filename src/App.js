@@ -36,7 +36,7 @@ import routes from "routes";
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
 
 // Images
-import brandWhite from "assets/images/logo_dumpster.png";
+import brandWhite from "assets/images/dumpster_white_name.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 
 export default function App() {

@@ -23,13 +23,9 @@ import { useNavigate } from "react-router-dom";
 
 
 function AddBin() {
-  const { borderWidth, borderColor } = borders;
-
   const [deviceName, setDeviceName] = useState();
-  const [res_person, setRes_Person] = useState();
-  const [wardno, setWardNo] = useState();
+  const [zone, setzone] = useState();
   const [address, setAddress] = useState();
-  const [selectedOption, setSelectedOption] = useState();
   const [message, setMessage] = useState({ error: false, msg: "" });
   const [data, setData] = useState();
   const [isEdit, setIsEdit] = useState(false);
@@ -53,11 +49,10 @@ function AddBin() {
   console.log("dustbin list data", data)
 
   //update
-  const handleEdit = (deviceName, res_person, status, wardno, address) => {
+  const handleEdit = (deviceName, status, zone, address) => {
     setIsEdit(true);
     setDeviceName(deviceName)
-    setRes_Person(res_person)
-    setWardNo(wardno)
+    setzone(zone)
     setAddress(address)
   };
 
@@ -66,15 +61,13 @@ function AddBin() {
   const handleUpdate = () => {
     update(ref(db, `smartbin/${deviceName}`), {
       deviceName,
-      res_person,
-      wardno,
+      zone,
       address
     });
 
     setIsEdit(false);
     setDeviceName("");
-    setRes_Person("");
-    setWardNo("");
+    setzone("");
     setAddress("");
   };
 
@@ -87,22 +80,20 @@ function AddBin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
-    if (deviceName === "" || res_person === "" || wardno === "" || address === "") {
+    if (deviceName === "" || zone === "" || address === "") {
       setMessage({ error: true, msg: "All fields are mandatory!" });
       console.log("err", message)
       return;
     } else {
-      // const uuid = uid();
+      const level = 0;
       set(ref(db, `smartbin/${deviceName}`), {
         deviceName,
-        res_person,
-        wardno,
+        level,
+        zone,
         address
       });
-      console.log("added")
       setDeviceName("");
-      setRes_Person("");
-      setWardNo("");
+      setzone("");
       setAddress("");
 
     }
@@ -125,13 +116,13 @@ function AddBin() {
   });
 
 
-  function sendEmail(d_id, res_person, status, wardno, address) {
+  function sendEmail(d_id, res_person, status, zone, address) {
     emailjs.send("service_cxatqal", "template_9nx2dqv", {
       email: "ckochiyaniya950@rku.ac.in",
       name: res_person,
       did: d_id,
       address: address,
-      wardno: wardno,
+      zone: zone,
       status: status,
     }, "azjlPTfE4F0zrZFJm").then(function (response) {
       Toast.fire({
@@ -158,19 +149,12 @@ function AddBin() {
     });
   }
 
-  console.log("check list ", test)
-
-
-
-
-  console.log("data", data)
-
   const navigate = useNavigate();
 
-  const routeChange = (d_id, res_person, level, wardno, address) => {
-    console.log(d_id, res_person, level, wardno, address)
+  const routeChange = (d_id,  level,res, zone, address) => {
+    console.log(d_id, level, zone, address)
     const path = `/dustbin-details`;
-    navigate(path, { state: { name: d_id, res_p: res_person, lev: level, war: wardno, add: address } });
+    navigate(path, { state: { name: d_id, lev: level,res_p:res, war: zone, add: address } });
   };
 
 
@@ -188,7 +172,7 @@ function AddBin() {
               <MDInput type="text" sx={{ width: "100%" }} placeholder="Dustbin ID" value={deviceName} onChange={(e) => setDeviceName(e.target.value)} />
             </Grid>
             <Grid item xs={12} md={4}>
-              <select value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)} style={{ width: "100%", padding: "0.75rem", fontSize: "0.875rem", fontWeight: 400, lineHeight: "1.4375em", letterSpacing: "0.00938em", borderRadius: "4px", background: "none" }}>
+              <select value={zone} onChange={(e) => setzone(e.target.value)} style={{ width: "100%", padding: "0.75rem", fontSize: "0.875rem", fontWeight: 400, lineHeight: "1.4375em", letterSpacing: "0.00938em", borderRadius: "4px", background: "none" }}>
                 <option value="">Select Zone</option>
                 <option value="central">Central Zone</option>
                 <option value="north">North Zone</option>
@@ -197,7 +181,7 @@ function AddBin() {
               </select>
             </Grid>
             {/* <Grid item xs={12} md={4}>
-              <MDInput type="text" sx={{ width: "100%" }} placeholder="Ward Number" value={wardno} onChange={(e) => setWardNo(e.target.value)} />
+              <MDInput type="text" sx={{ width: "100%" }} placeholder="Ward Number" value={zone} onChange={(e) => setzone(e.target.value)} />
             </Grid> */}
             <Grid item xs={12}  md={4} >
               <MDInput type="textbox" sx={{ width: "100%" }} placeholder="Dustbin Address" value={address} onChange={(e) => setAddress(e.target.value)} />
@@ -245,9 +229,8 @@ function AddBin() {
               <Table
                 columns={[
                   { name: "name", align: "center" },
-                  // { name: "Responsible_person", align: "left" },
                   { name: "Level", align: "center" },
-                  { name: "Ward_no", align: "center" },
+                  { name: "Zone", align: "center" },
                   { name: "Address", align: "center" },
                   { name: "edit", align: "right" },
                   { name: "delete", align: "center" },
@@ -257,30 +240,29 @@ function AddBin() {
                 rows=
                 {
                   data?.map((value) => {
-                    console.log("kkk", value)
                     let x = {};
                     const d_id = value["deviceName"]
-                    const res_person = value["res_person"]
                     const level = value["level"]
-                    const wardno = value["wardno"]
+                    const zone = value["zone"]
                     const address = value["address"]
+                    const res_p = value["res_person"]
 
                     // eslint-disable-next-line no-unused-expressions
                     level >= 80 ?
                       test.includes(d_id) ?
-                        setTimeout(() => { }, 3600000) : sendEmail(d_id, res_person, level, wardno, address) : null
+                        setTimeout(() => { }, 3600000) : sendEmail(d_id, level, zone, address) : null
 
                     x["name"] = value["deviceName"]
-                    // x["Responsible_person"] = value["res_person"];
+                    x["Responsible_person"] = value["res_person"];
                     x["Level"] = value["level"]
-                    x["Ward_no"] = value["wardno"]
+                    x["Zone"] = value["zone"]
                     x["Address"] = value["address"]
                     x["edit"] = (<MDButton variant="gradient" color="info" iconOnly
-                      onClick={() => { handleEdit(d_id, res_person, level, wardno, address); }}>
+                      onClick={() => { handleEdit(d_id, level, zone, address); }}>
                       <Icon>edit</Icon></MDButton>)
                     x["delete"] = (<MDButton variant="gradient" color="info" iconOnly onClick={() => { handleDelete(d_id); }}><Icon>deleteforever</Icon></MDButton>)
                     x["show"] = (<MDButton variant="gradient" color="info" onClick={() => {
-                      routeChange(d_id, res_person, level, wardno, address);
+                      routeChange(d_id, level,res_p, zone, address);
                     }} >show</MDButton>)
                     return x;
                   })
@@ -291,13 +273,6 @@ function AddBin() {
           </Card>
         </MDBox>
       </MDBox>
-
-
-      {data == "undefined" ? console.log("undefine") : (
-        data?.map((test) => {
-          console.log("test", test.address)
-        })
-      )}
     </>
   );
 }

@@ -39,6 +39,14 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "Allocation ",
+    key: "allocation",
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "/allocation",
+    component: <AddWorker />,
+  },
+  {
+    type: "collapse",
     name: "Allocate Worker",
     key: "allocate-worker",
     icon: <Icon fontSize="small">dashboard</Icon>,

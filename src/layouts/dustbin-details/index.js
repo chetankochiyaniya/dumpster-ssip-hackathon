@@ -48,19 +48,19 @@ function DustbinDetails() {
                 variant="gradient"
               >
                 <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
-                  Dustbin Name : {state.name};
+                  Dustbin Name :  {state.name} ,
                 </MDTypography>
                 <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
-                  Responsible Person : {state.res_p};
+                  Responsible Person :  {state.res_p} ,
                 </MDTypography>
                 <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
-                  Level : {state.lev};
+                  Level :  {state.lev} ,
                 </MDTypography>
                 <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
-                  Ward Number : {state.war};
+                  Ward Number :  {state.war} ,
                 </MDTypography>
                 <MDTypography variant="button" fontWeight="bold" textTransform="capitalize">
-                  Address : {state.add};
+                  Address :  {state.add} 
                 </MDTypography>
 
               </MDBox>

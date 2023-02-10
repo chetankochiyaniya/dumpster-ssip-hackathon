@@ -43,12 +43,10 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 
 function AddWorker() {
-  const { borderWidth, borderColor } = borders;
-
+ 
   const [workerName, setworkerName] = useState();
   const [email_id, setemail_id] = useState();
   const [address, setaddress] = useState();
-  const [dustbin_name, setdustbin_name] = useState();
   const [message, setMessage] = useState({ error: false, msg: "" });
   const [data, setData] = useState();
   const [isEdit, setIsEdit] = useState(false);
@@ -58,7 +56,6 @@ function AddWorker() {
     onValue(ref(db), (snapshot) => {
       setData([]);
       const data = snapshot.val();
-      console.log("check", data.worker)
       if (data !== null) {
         Object.values(data.worker).map((data) => {
           setData((oldArray) => [...oldArray, data]);
@@ -68,9 +65,6 @@ function AddWorker() {
   }, []);
 
 
-
-  console.log("dustbin list data", data)
-
   //update
   const handleEdit = (workerName, email_id, number, address, dustbin_name) => {
     setIsEdit(true);
@@ -78,7 +72,6 @@ function AddWorker() {
     setNumber(number)
     setemail_id(email_id)
     setaddress(address)
-    setdustbin_name(dustbin_name)
   };
 
 
@@ -88,7 +81,6 @@ function AddWorker() {
       workerName,
         email_id,
         address,
-        dustbin_name,
         number
     });
 
@@ -96,7 +88,6 @@ function AddWorker() {
     setworkerName("");
     setemail_id("");
     setaddress("");
-    setdustbin_name("");
     setNumber("");
   };
 
@@ -109,7 +100,7 @@ function AddWorker() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
-    if (workerName === "" || email_id === "" || address === "" || dustbin_name === "" || number === "") {
+    if (workerName === "" || email_id === "" || address === "" || number === "") {
       setMessage({ error: true, msg: "All fields are mandatory!" });
       console.log("err", message)
       return;
@@ -119,20 +110,16 @@ function AddWorker() {
         workerName,
         email_id,
         address,
-        dustbin_name,
         number
       });
       console.log("added")
       setworkerName("");
       setemail_id("");
       setaddress("");
-      setdustbin_name("");
       setNumber("")
 
     }
   };
-
-  console.log("data", data)
 
 
   return (
@@ -220,7 +207,6 @@ function AddWorker() {
                           rows=
                           {
                             data?.map((value) => {
-                              console.log("kkk", value)
                               let x = {};
                               const name = value["workerName"]
                               const email_id = value["email_id"]
@@ -233,7 +219,7 @@ function AddWorker() {
                               x["address"] = value["address"]
                               // x["dustbin_name"] = value["dustbin_name"]
                               x["edit"] = (<MDButton variant="gradient" color="info" iconOnly
-                                onClick={() => { handleEdit(name, email_id, number, address, dustbin_name); }}>
+                                onClick={() => { handleEdit(name, email_id, number, address); }}>
                                 <Icon>edit</Icon></MDButton>)
                               x["delete"] = (<MDButton variant="gradient" color="info" iconOnly onClick={() => { handleDelete(name); }}><Icon>deleteforever</Icon></MDButton>)
                               return x;

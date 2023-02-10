@@ -1,6 +1,3 @@
-
-
-// @mui material components
 import Grid from "@mui/material/Grid";
 
 // Dumpster Dashboard React components
@@ -10,25 +7,36 @@ import MDBox from "components/MDBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
-import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
-import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
-import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
-
-// Data
-import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
-import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
-
-// Dashboard components
-import Projects from "layouts/dashboard/components/Projects";
-import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 import { useNavigate } from "react-router-dom";
+import CircleProgressBar from "./components/Progressbar";
+import { Card } from "@mui/material";
+import MDTypography from "components/MDTypography";
 
 function getPageContent() {
-  const { sales, tasks } = reportsLineChartData;
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      <MDBox py={3} >
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6} lg={3}>
+            <Card><MDBox p={2} py={1} px={1} display="flex" justifyContent="center" alignItems="center"><CircleProgressBar percentage={90} /></MDBox><MDTypography display="flex" alignItems="center" justifyContent="center">North Zone</MDTypography></Card>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Card><MDBox p={2} py={1} px={1} display="flex" justifyContent="center" alignItems="center" ><CircleProgressBar percentage={60} /></MDBox><MDTypography display="flex" alignItems="center" justifyContent="center">South Zone</MDTypography></Card>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Card><MDBox p={2} py={1} px={1} display="flex" justifyContent="center" alignItems="center"><CircleProgressBar percentage={40} /></MDBox><MDTypography display="flex" alignItems="center" justifyContent="center">Central Zone</MDTypography></Card>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Card><MDBox p={2} py={1} px={1} display="flex" justifyContent="center" alignItems="center"><CircleProgressBar percentage={40} /></MDBox><MDTypography display="flex" alignItems="center" justifyContent="center">East Zone</MDTypography></Card>
+          </Grid>
+          </Grid>
+          </MDBox>
+      
+      
+      
+      
       {/* <MDBox py={3}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={3}>
