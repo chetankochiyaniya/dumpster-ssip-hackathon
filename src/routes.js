@@ -7,10 +7,11 @@ import AddWorker from "layouts/add-worker"
 import AddBin from "layouts/add-dustbin";
 import DustbinDetails from "layouts/dustbin-details";
 import Logout from "layouts/authentication/logout";
+import Allocate from "layouts/allocation"
 
 // @mui icons
 import Icon from "@mui/material/Icon";
-import AllocateWorker from "layouts/allocate-worker";
+import SearchableDropdown from "layouts/allocate-worker";
 
 const routes = [
   {
@@ -37,21 +38,21 @@ const routes = [
     route: "/add-worker",
     component: <AddWorker />,
   },
-  {
-    type: "collapse",
-    name: "Allocation ",
-    key: "allocation",
-    icon: <Icon fontSize="small">dashboard</Icon>,
-    route: "/allocation",
-    component: <AddWorker />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Allocation ",
+  //   key: "allocation",
+  //   icon: <Icon fontSize="small">dashboard</Icon>,
+  //   route: "/allocation",
+  //   component: <Allocate />,
+  // },
   {
     type: "collapse",
     name: "Allocate Worker",
     key: "allocate-worker",
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/allocate-worker",
-    component: <AllocateWorker />,
+    component: <SearchableDropdown />,
   },
   {
     name: "Dustbin Details",

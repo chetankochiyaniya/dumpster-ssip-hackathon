@@ -35,7 +35,6 @@ function AddBin() {
     onValue(ref(db), (snapshot) => {
       setData([]);
       const data = snapshot.val();
-      console.log("check", data.smartbin)
       if (data !== null) {
         Object.values(data.smartbin).map((data) => {
           setData((oldArray) => [...oldArray, data]);
@@ -43,10 +42,6 @@ function AddBin() {
       }
     });
   }, []);
-
-
-
-  console.log("dustbin list data", data)
 
   //update
   const handleEdit = (deviceName, status, zone, address) => {
@@ -82,7 +77,6 @@ function AddBin() {
     setMessage("");
     if (deviceName === "" || zone === "" || address === "") {
       setMessage({ error: true, msg: "All fields are mandatory!" });
-      console.log("err", message)
       return;
     } else {
       const level = 0;
@@ -116,43 +110,54 @@ function AddBin() {
   });
 
 
-  function sendEmail(d_id, res_person, status, zone, address) {
-    emailjs.send("service_cxatqal", "template_9nx2dqv", {
-      email: "ckochiyaniya950@rku.ac.in",
-      name: res_person,
-      did: d_id,
-      address: address,
-      zone: zone,
-      status: status,
-    }, "azjlPTfE4F0zrZFJm").then(function (response) {
-      Toast.fire({
-        customClass: {
-          timerProgressBar: 'timerBar'
-        },
-        color: 'white',
-        background: '#222',
-        icon: "success",
-        title: " mail send Successfully",
-      });
-      setTest([...test, d_id])
-      console.log("mail send Successfully")
-    }, function (error) {
-      Toast.fire({
-        customClass: {
-          timerProgressBar: 'timerBar'
-        },
-        color: 'white',
-        background: '#222',
-        icon: "error",
-        title: `FAILED...Try Again`,
-      });
-    });
+  const key = "myFunctionCalledAt";
+
+function sendEmail(d_id, status, zone, address) {
+  const storedTime = localStorage.getItem(key);
+  if (storedTime) {
+    const elapsedTime = new Date() - new Date(storedTime);
+    if (elapsedTime < 1000 * 60 * 30) {
+      console.log("Function will be called after 30 minutes.");
+      return;
+    }
   }
+  localStorage.setItem(key, new Date());
+  emailjs.send("service_cxatqal", "template_9nx2dqv", {
+    email: "ckochiyaniya950@rku.ac.in",
+    name: "chetan",
+    did: d_id,
+    address: address,
+    zone: zone,
+    status: status,
+  }, "azjlPTfE4F0zrZFJm").then(function (response) {
+    Toast.fire({
+      customClass: {
+        timerProgressBar: 'timerBar'
+      },
+      color: 'white',
+      background: '#222',
+      icon: "success",
+      title: " mail send Successfully",
+    });
+    setTest([...test, d_id])
+  }, function (error) {
+    Toast.fire({
+      customClass: {
+        timerProgressBar: 'timerBar'
+      },
+      color: 'white',
+      background: '#222',
+      icon: "error",
+      title: `FAILED...Try Again`,
+    });
+  });
+console.log("Function called for the first time or after 30 minutes.");
+}
+    
 
   const navigate = useNavigate();
 
   const routeChange = (d_id,  level,res, zone, address) => {
-    console.log(d_id, level, zone, address)
     const path = `/dustbin-details`;
     navigate(path, { state: { name: d_id, lev: level,res_p:res, war: zone, add: address } });
   };
@@ -248,9 +253,11 @@ function AddBin() {
                     const res_p = value["res_person"]
 
                     // eslint-disable-next-line no-unused-expressions
-                    level >= 80 ?
-                      test.includes(d_id) ?
-                        setTimeout(() => { }, 3600000) : sendEmail(d_id, level, zone, address) : null
+                    // level >= 80 ?
+                    //   test.includes(d_id) ?
+                    //     setTimeout(() => { }, 3600000) : sendEmail(d_id, level, zone, address) : null
+                        // eslint-disable-next-line no-unused-expressions
+                        level >= 80 ? sendEmail(d_id, level, zone, address) : null
 
                     x["name"] = value["deviceName"]
                     x["Responsible_person"] = value["res_person"];

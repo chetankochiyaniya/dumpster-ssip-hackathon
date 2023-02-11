@@ -34,18 +34,15 @@ function Basic() {
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
   const login = () => {
-    // console.log("check", email, password)
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log("user",user.email);
         localStorage.setItem("valid_user",user.email);
         navigate('/')
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorMessage)
       });
 
   }
@@ -121,7 +118,6 @@ function Basic() {
 
 const SignIn = () =>{
   const user = localStorage.getItem("valid_user");
-  console.log("user",user)
   const navigate = useNavigate();
 
   if(user!==null) {

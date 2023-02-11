@@ -282,7 +282,7 @@ function Configurator() {
             variant="outlined"
             fullWidth
           >
-            Team-CodeReactors
+            Team-Dumpster
           </MDButton>
         </MDBox>
         <MDBox display="flex" justifyContent="center">

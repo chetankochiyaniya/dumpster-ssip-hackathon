@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 const Logout = () =>{
     const user = localStorage.removeItem("valid_user");
 
-    console.log("user",user)
     const navigate = useNavigate();
 
       if(localStorage.getItem("valid_user") == undefined || localStorage.getItem("valid_user") == null){

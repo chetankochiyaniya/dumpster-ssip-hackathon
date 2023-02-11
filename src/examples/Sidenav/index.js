@@ -169,7 +169,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           color={sidenavColor}
           fullWidth
         >
-          Team Code-Reactors
+          Team Dumpster
         </MDButton>
       </MDBox>
     </SidenavRoot>

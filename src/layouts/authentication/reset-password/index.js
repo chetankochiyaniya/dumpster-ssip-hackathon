@@ -27,12 +27,11 @@ function RestPassword() {
   const navigate = useNavigate();
 
   const sendMail = () => {
-      console.log("email",email)
+
       sendPasswordResetEmail(auth, email)
           .then((res) => {
               // Password reset email sent!
               localStorage.removeItem("validate")
-              console.log("email is sended !")
               alert("check your email !!")
               navigate('/authentication/sign-in')
               
@@ -40,8 +39,6 @@ function RestPassword() {
           .catch((error) => {
               const errorCode = error.code;
               const errorMessage = error.message;
-              // ..
-              console.log("error",errorMessage)
               alert("plase enter valid details")
           });
   }

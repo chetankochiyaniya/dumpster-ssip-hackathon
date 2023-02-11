@@ -102,7 +102,6 @@ function AddWorker() {
     setMessage("");
     if (workerName === "" || email_id === "" || address === "" || number === "") {
       setMessage({ error: true, msg: "All fields are mandatory!" });
-      console.log("err", message)
       return;
     } else {
       // const uuid = uid();
@@ -112,7 +111,6 @@ function AddWorker() {
         address,
         number
       });
-      console.log("added")
       setworkerName("");
       setemail_id("");
       setaddress("");
@@ -237,13 +235,6 @@ function AddWorker() {
         </MDBox>
 
       </DashboardLayout>
-
-
-      {/* {data=="undefined" ? console.log("undefine"):( 
-      data?.map((test)=>{
-        console.log("test",test.dustbin_name)
-      })
-    )} */}
     </>
   );
 }
