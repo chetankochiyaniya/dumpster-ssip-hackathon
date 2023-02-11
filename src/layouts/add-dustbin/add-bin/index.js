@@ -112,7 +112,7 @@ function AddBin() {
 
   const key = "myFunctionCalledAt";
 
-function sendEmail(d_id, status, zone, address) {
+function sendEmail(d_id, worker, status, zone, address) {
   const storedTime = localStorage.getItem(key);
   if (storedTime) {
     const elapsedTime = new Date() - new Date(storedTime);
@@ -124,7 +124,7 @@ function sendEmail(d_id, status, zone, address) {
   localStorage.setItem(key, new Date());
   emailjs.send("service_cxatqal", "template_9nx2dqv", {
     email: "ckochiyaniya950@rku.ac.in",
-    name: "chetan",
+    name: worker,
     did: d_id,
     address: address,
     zone: zone,
@@ -174,10 +174,10 @@ console.log("Function called for the first time or after 30 minutes.");
         <MDBox p={2}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={4}>
-              <MDInput type="text" sx={{ width: "100%" }} placeholder="Dustbin ID" value={deviceName} onChange={(e) => setDeviceName(e.target.value)} />
+              <MDInput type="text" required sx={{ width: "100%" }} placeholder="Dustbin ID" value={deviceName} onChange={(e) => setDeviceName(e.target.value)} />
             </Grid>
             <Grid item xs={12} md={4}>
-              <select value={zone} onChange={(e) => setzone(e.target.value)} style={{ width: "100%", padding: "0.75rem", fontSize: "0.875rem", fontWeight: 400, lineHeight: "1.4375em", letterSpacing: "0.00938em", borderRadius: "4px", background: "none" }}>
+              <select value={zone} required onChange={(e) => setzone(e.target.value)} style={{ width: "100%", color: "#495057", borderColor: "#495057", padding: "0.75rem", fontSize: "0.875rem", fontWeight: 400, lineHeight: "1.4375em", letterSpacing: "0.00938em", borderRadius: "4px", background: "none" }}>
                 <option value="">Select Zone</option>
                 <option value="central">Central Zone</option>
                 <option value="north">North Zone</option>
@@ -189,7 +189,7 @@ console.log("Function called for the first time or after 30 minutes.");
               <MDInput type="text" sx={{ width: "100%" }} placeholder="Ward Number" value={zone} onChange={(e) => setzone(e.target.value)} />
             </Grid> */}
             <Grid item xs={12}  md={4} >
-              <MDInput type="textbox" sx={{ width: "100%" }} placeholder="Dustbin Address" value={address} onChange={(e) => setAddress(e.target.value)} />
+              <MDInput type="text" required sx={{ width: "100%" }} placeholder="Dustbin Address" value={address} onChange={(e) => setAddress(e.target.value)} />
             </Grid>
           </Grid>
         </MDBox>
@@ -250,17 +250,17 @@ console.log("Function called for the first time or after 30 minutes.");
                     const level = value["level"]
                     const zone = value["zone"]
                     const address = value["address"]
-                    const res_p = value["res_person"]
+                    const worker = value["worker"]
 
                     // eslint-disable-next-line no-unused-expressions
                     // level >= 80 ?
                     //   test.includes(d_id) ?
                     //     setTimeout(() => { }, 3600000) : sendEmail(d_id, level, zone, address) : null
                         // eslint-disable-next-line no-unused-expressions
-                        level >= 80 ? sendEmail(d_id, level, zone, address) : null
+                        level >= 80 ? sendEmail(d_id, worker, level, zone, address) : null
 
                     x["name"] = value["deviceName"]
-                    x["Responsible_person"] = value["res_person"];
+                    x["worker"] = value["worker"];
                     x["Level"] = value["level"]
                     x["Zone"] = value["zone"]
                     x["Address"] = value["address"]
@@ -269,7 +269,7 @@ console.log("Function called for the first time or after 30 minutes.");
                       <Icon>edit</Icon></MDButton>)
                     x["delete"] = (<MDButton variant="gradient" color="info" iconOnly onClick={() => { handleDelete(d_id); }}><Icon>deleteforever</Icon></MDButton>)
                     x["show"] = (<MDButton variant="gradient" color="info" onClick={() => {
-                      routeChange(d_id, level,res_p, zone, address);
+                      routeChange(d_id, level,worker, zone, address);
                     }} >show</MDButton>)
                     return x;
                   })

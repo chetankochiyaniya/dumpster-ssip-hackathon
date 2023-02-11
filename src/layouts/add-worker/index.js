@@ -43,14 +43,14 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 
 function AddWorker() {
- 
+
   const [workerName, setworkerName] = useState();
   const [email_id, setemail_id] = useState();
   const [address, setaddress] = useState();
   const [message, setMessage] = useState({ error: false, msg: "" });
   const [data, setData] = useState();
   const [isEdit, setIsEdit] = useState(false);
-  const [number,setNumber] = useState();
+  const [number, setNumber] = useState();
 
   useEffect(() => {
     onValue(ref(db), (snapshot) => {
@@ -79,9 +79,9 @@ function AddWorker() {
   const handleUpdate = () => {
     update(ref(db, `worker/${workerName}`), {
       workerName,
-        email_id,
-        address,
-        number
+      email_id,
+      address,
+      number
     });
 
     setIsEdit(false);
@@ -137,19 +137,19 @@ function AddWorker() {
                   <MDBox p={2}>
                     <Grid container spacing={3}>
                       <Grid item xs={12} md={6}>
-                        <MDInput type="text" sx={{width:"100%"}} placeholder="Worker Name" value={workerName} onChange={(e) => setworkerName(e.target.value)} />
+                        <MDInput type="text" required sx={{ width: "100%" }} placeholder="Worker Name" value={workerName} onChange={(e) => setworkerName(e.target.value)} />
                       </Grid>
                       <Grid item xs={12} md={6}>
-                        <MDInput type="text" sx={{width:"100%"}} placeholder="Email Id" value={email_id} onChange={(e) => setemail_id(e.target.value)} />
+                        <MDInput type="text" required sx={{ width: "100%" }} placeholder="Email Id" value={email_id} onChange={(e) => setemail_id(e.target.value)} />
                       </Grid>
                       {/* <Grid item xs={12} md={6}>
                         <MDInput type="text" sx={{width:"100%"}} placeholder="Dustbin Name" value={dustbin_name} onChange={(e) => setdustbin_name(e.target.value)} />
                       </Grid> */}
                       <Grid item xs={12} md={6}>
-                        <MDInput type="text" sx={{width:"100%"}} placeholder="Phone Number" value={number} onChange={(e) => setNumber(e.target.value)} />
+                        <MDInput type="text" required sx={{ width: "100%" }} placeholder="Phone Number" value={number} onChange={(e) => setNumber(e.target.value)} />
                       </Grid>
                       <Grid item xs={12} md={6}>
-                        <MDInput type="text" sx={{width:"100%"}} placeholder="Worker Address" value={address} onChange={(e) => setaddress(e.target.value)} />
+                        <MDInput type="text" required sx={{ width: "100%" }} placeholder="Worker Address" value={address} onChange={(e) => setaddress(e.target.value)} />
                       </Grid>
                     </Grid>
                   </MDBox>
@@ -170,10 +170,7 @@ function AddWorker() {
                       </MDBox>
                     )
                   }
-
-
                 </Card>
-
                 <MDBox py={3}>
                   <MDBox mb={3}>
                     <Card>
@@ -190,7 +187,6 @@ function AddWorker() {
                           },
                         }}
                       >
-
                         <Table
                           columns={[
                             { name: "name", align: "center" },
@@ -223,7 +219,6 @@ function AddWorker() {
                               return x;
                             })
                           }
-
                         />
                       </MDBox>
                     </Card>

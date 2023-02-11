@@ -15,6 +15,7 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { useLocation } from "react-router-dom";
 import MDTypography from "components/MDTypography";
+import CircleProgressBar from "layouts/dashboard/components/Progressbar";
 
 
 function DustbinDetails() {
@@ -25,7 +26,7 @@ function DustbinDetails() {
     <DashboardNavbar />
       <MDBox mt={5} mb={3}>
         <Grid container spacing={3}>
-        <Grid item xs={12} md={6} xl={6}>
+        <Grid item xs={12} md={4} xl={4}>
           <MDBox
                 height="100%"
                 display="grid"
@@ -35,10 +36,10 @@ function DustbinDetails() {
                 borderRadius="lg"
                 variant="gradient"
               >
-                <img src={dumpsterImage} height="200px"/>
+                <CircleProgressBar percentage={state.lev} />
               </MDBox>
           </Grid>
-          <Grid item xs={12} md={6} xl={6}>
+          <Grid item xs={12} md={8} xl={8}>
             <MDBox
                 height="100%"
                 display="grid"

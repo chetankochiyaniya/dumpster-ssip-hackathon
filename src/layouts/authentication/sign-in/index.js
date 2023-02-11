@@ -21,8 +21,8 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
-
-import {auth} from "../../../firebase/firebase";
+import dumpsterImage from "assets/images/dumpster_white_name.png"
+import { auth } from "../../../firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 
@@ -37,7 +37,7 @@ function Basic() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        localStorage.setItem("valid_user",user.email);
+        localStorage.setItem("valid_user", user.email);
         navigate('/')
       })
       .catch((error) => {
@@ -61,21 +61,22 @@ function Basic() {
           mb={1}
           textAlign="center"
         >
+          <img src={dumpsterImage} height="50px" />
           <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
             Sign in
           </MDTypography>
-          <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
+          {/* <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
             <Grid item xs={2}>
             </Grid>
-          </Grid>
+          </Grid> */}
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth onChange={e => setEmail(e.target.value)}  />
+              <MDInput type="email" label="Email" fullWidth onChange={e => setEmail(e.target.value)} />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth onChange={e => setPassword(e.target.value)}/>
+              <MDInput type="password" label="Password" fullWidth onChange={e => setPassword(e.target.value)} />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -96,7 +97,7 @@ function Basic() {
             </MDBox>
             <MDBox mt={3} mb={1} textAlign="center">
               <MDTypography variant="button" color="text">
-              Forgot password?{" "}
+                Forgot password?{" "}
                 <MDTypography
                   component={Link}
                   to="/authentication/resetpassword"
@@ -116,16 +117,16 @@ function Basic() {
   );
 }
 
-const SignIn = () =>{
+const SignIn = () => {
   const user = localStorage.getItem("valid_user");
   const navigate = useNavigate();
 
-  if(user!==null) {
+  if (user !== null) {
     navigate("/");
-} else {
-  return Basic();
+  } else {
+    return Basic();
+  }
+  return <></>;
 }
-return <></>;
-} 
 
 export default SignIn;
