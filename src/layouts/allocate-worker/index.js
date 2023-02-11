@@ -1,171 +1,143 @@
-/**
-=========================================================
-* MD UI Dashboard React - v4.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/MD-ui-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the MDware.
-*/
-
-// @mui material components
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import Icon from "@mui/material/Icon";
-
-// MD UI Dashboard React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
-
 import MDInput from "components/MDInput";
 import { useEffect, useState } from "react";
-
 import { db } from "../../firebase/firebase";
-import { set, ref, onValue, remove, update } from "firebase/database";
-import Table from "examples/Tables/Table";
-// MD UI Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import { onValue, ref,set } from "firebase/database";
 
-
-function AddWorker() {
- 
-  const [workerName, setworkerName] = useState();
-  const [email_id, setemail_id] = useState();
-  const [address, setaddress] = useState();
+function Allocate() {
+  const [deviceName, setDeviceName] = useState();
+  const [worker, setWorker] = useState();
+  const [address, setAddress] = useState();
+  const [ddata, setdData] = useState();
+  const [wdata, setwData] = useState();
+  const [w,setW] = useState();
+  const [d,setD] = useState();
   const [message, setMessage] = useState({ error: false, msg: "" });
-  const [data, setData] = useState();
-  const [isEdit, setIsEdit] = useState(false);
-  const [number,setNumber] = useState();
 
   useEffect(() => {
-    onValue(ref(db), (snapshot) => {
-      setData([]);
+    const onValueRef = onValue(ref(db), (snapshot) => {
+      setdData([]);
+      setwData([]);
       const data = snapshot.val();
       if (data !== null) {
         Object.values(data.worker).map((data) => {
-          setData((oldArray) => [...oldArray, data]);
+          setwData((oldArray) => [...oldArray, data]);
+        });
+        Object.values(data.smartbin).map((data) => {
+          setdData((oldArray) => [...oldArray, data]);
         });
       }
     });
+
+    return () => {
+    };
   }, []);
-
-  //update
-  const handleEdit = (workerName, email_id, number, address, dustbin_name) => {
-    setIsEdit(true);
-    setworkerName(workerName)
-    setNumber(number)
-    setemail_id(email_id)
-    setaddress(address)
-  };
-
-
-
-  const handleUpdate = () => {
-    update(ref(db, `worker/${workerName}`), {
-      workerName,
-        email_id,
-        address,
-        number
-    });
-
-    setIsEdit(false);
-    setworkerName("");
-    setemail_id("");
-    setaddress("");
-    setNumber("");
-  };
-
-
-  //delete
-  const handleDelete = (workerName) => {
-    remove(ref(db, `worker/${workerName}`));
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
-    if (workerName === "" || email_id === "" || address === "" || number === "") {
+    console.log()
+    if (deviceName==undefined || worker==undefined) {
       setMessage({ error: true, msg: "All fields are mandatory!" });
+      console.log("error")
       return;
     } else {
-      // const uuid = uid();
-      set(ref(db, `worker/${workerName}`), {
-        workerName,
-        email_id,
-        address,
-        number
+      set(ref(db, `allocation/${deviceName}`), {
+        deviceName,
+        worker
       });
-      setworkerName("");
-      setemail_id("");
-      setaddress("");
-      setNumber("")
+      setDeviceName("")
+      setWorker("")
+      console.log("succefully")
 
     }
   };
-
-
   return (
     <>
       <DashboardLayout>
         <DashboardNavbar />
-        <MDBox mt={4}>
-          <MDBox mb={1.5}>
+        <Card id="delete-account">
+          <MDBox
+            pt={3}
+            px={2}
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <MDTypography variant="h6" fontWeight="medium">
+              Allocate Worker
+            </MDTypography>
+          </MDBox>
+          <MDBox p={2}>
             <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <Card id="delete-account">
-                  <MDBox pt={2} px={2} display="flex" justifyContent="space-between" alignItems="center">
-                    <MDTypography variant="h6" fontWeight="medium">
-                      Allocation
-                    </MDTypography>
-                  </MDBox>
-                  <MDBox p={2}>
-                    <Grid container spacing={3}>
-                      <Grid item xs={12} md={6}>
-                        <MDInput type="text" sx={{width:"100%"}} placeholder="Worker Name" value={workerName} onChange={(e) => setworkerName(e.target.value)} />
-                      </Grid>
-                      <Grid item xs={12} md={6}>
-                        <MDInput type="text" sx={{width:"100%"}} placeholder="Email Id" value={email_id} onChange={(e) => setemail_id(e.target.value)} />
-                      </Grid>
-                      {/* <Grid item xs={12} md={6}>
-                        <MDInput type="text" sx={{width:"100%"}} placeholder="Dustbin Name" value={dustbin_name} onChange={(e) => setdustbin_name(e.target.value)} />
-                      </Grid> */}
-                      <Grid item xs={12} md={6}>
-                        <MDInput type="text" sx={{width:"100%"}} placeholder="Phone Number" value={number} onChange={(e) => setNumber(e.target.value)} />
-                      </Grid>
-                      <Grid item xs={12} md={6}>
-                        <MDInput type="text" sx={{width:"100%"}} placeholder="Worker Address" value={address} onChange={(e) => setaddress(e.target.value)} />
-                      </Grid>
-                    </Grid>
-                  </MDBox>
-                  {
-                    isEdit ? (
-                      <MDBox p={2}>
-                        <MDButton variant="gradient" color="dark" onClick={handleUpdate}>
-                          <Icon sx={{ fontWeight: "bold" }}>edit</Icon>
-                          &nbsp;Edit
-                        </MDButton>
-                      </MDBox>
-                    ) : (
-                      <MDBox p={2}>
-                        <MDButton variant="gradient" color="dark" onClick={handleSubmit}>
-                          <Icon sx={{ fontWeight: "bold" }}>add</Icon>
-                          &nbsp;add new Worker
-                        </MDButton>
-                      </MDBox>
+              <Grid item xs={12} md={4}>
+                <select
+                  value={worker}
+                  onChange={(e) => setWorker(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "0.75rem",
+                    fontSize: "0.875rem",
+                    fontWeight: 400,
+                    lineHeight: "1.4375em",
+                    letterSpacing: "0.00938em",
+                    borderRadius: "4px",
+                    background: "none",
+                  }}
+                >
+                <option value="" onChange={(e) => setW(e.target.value)}>Select Worker</option>
+                {
+                  wdata?.map((elem)=>{
+                    return(
+                      <option value={w} onChange={(e) => setW(e.target.value)}>{elem.workerName}</option>
                     )
-                  }
-
-
-                </Card>
-
-                <MDBox py={3}>
+                  })
+                }
+              </select>
+            </Grid>
+            <Grid item xs={12} md={4}>
+            <select
+                  value={deviceName}
+                  onChange={(e) => setDeviceName(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "0.75rem",
+                    fontSize: "0.875rem",
+                    fontWeight: 400,
+                    lineHeight: "1.4375em",
+                    letterSpacing: "0.00938em",
+                    borderRadius: "4px",
+                    background: "none",
+                  }}
+                >
+                <option value="" onChange={(e) => setD(e.target.value)}>Select Device Name</option>
+                {
+                  ddata?.map((elem)=>{
+                    return(
+                      <option value={d} onChange={(e) => setD(e.target.value)}>{elem.deviceName}</option>
+                    )
+                  })
+                }
+              </select>
+            </Grid>
+          </Grid>
+        </MDBox>
+        
+            <MDBox p={2}>
+              <MDButton variant="gradient" color="dark" onClick={handleSubmit}>
+                <Icon sx={{ fontWeight: "bold" }}>add</Icon>
+                &nbsp;Allocate
+              </MDButton>
+            </MDBox>
+      </Card>
+      {/* <MDBox py={3}>
                   <MDBox mb={3}>
                     <Card>
                       <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
@@ -217,17 +189,12 @@ function AddWorker() {
 
                         />
                       </MDBox>
-                    </Card>
-                  </MDBox>
+                </Card>
                 </MDBox>
-              </Grid>
-            </Grid>
-          </MDBox>
-        </MDBox>
-
+                </MDBox> */}
       </DashboardLayout>
-    </>
+   </>
   );
 }
 
-export default AddWorker;
+export default Allocate;
